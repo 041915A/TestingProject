@@ -1,0 +1,79 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation
+
+Documentation	Project Test Scenario. Test for Creating, Updating, and Deleting Projects
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Open Browser, Log in 
+Post Condition	Sign out, Close All Browsers
+Tags	ProjectManagement, TS-3-ProjectManagement
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Project Creation Field Variables
+
+NewProjectUrl = https://gitlab.com/projects/new
+ProjectsUrl = https://gitlab.com/dashboard/projects
+ProjectName = Laurea2024
+NewProjectName = Laurea2025
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Tests
+
+Create Blank Project
+    Navigate To New Project Page  NewProjectUrl
+    Click On Create blank project
+	Input Project Name  ProjectName
+	Click On Create project
+	Verify Page Should Say Project 'ProjectName' was successfully created
+
+Create Template Project
+    Navigate To New Project Page  NewProjectUrl
+	Click On Create from template
+	Select a Template
+	Input Project Name  ProjectName
+	Click On Create project
+	Verify Page Should Say The project was successfully imported
+
+Update Name of Template Project
+    Navigate To Projects Page  ProjectsUrl
+	Select a Project
+	Click On Three Vertical Dots Menu
+	Click On Projects settings
+	Input New Project Name  NewProjectName
+	Click On Save changes
+	Verify Page Should Say Project 'NewProjectName' was successfully updated
+
+Delete Template Project
+    Navigate To Projects Page  ProjectsUrl
+	Select a Project
+	Click On Three Vertical Dots Menu
+	Click On Projects settings
+	Expand Advanced Settings
+	Click On Delete project
+	Enter Confirmation
+	Confirm Deletion
+	Verify Page Should Say Project 'Group / ProjectName' will be deleted
+
+# Negative Tests
+
+Create a Blank Project with the Previous Same Name
+    Navigate To New Project Page  NewProjectUrl
+    Click On Create blank project
+	Input Project Name  ProjectName
+	Click On Create project
+	Verify That Error Message is Visible When Creating a Project with the Same Name

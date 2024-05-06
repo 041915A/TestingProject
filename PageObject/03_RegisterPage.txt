@@ -1,0 +1,88 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Documentation
+
+Documentation	User Registration Test Scenario. Using valid and invalid credentials.
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Open Browser
+Post Condition	Close All Browsers
+Tags	Registration, TS-2-Registration
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Registration Field Variables
+
+LoginUrl = https://gitlab.com/users/sign_up
+FirstName = Jane
+LastName = Doe
+UserName = JaneDoe
+Email = Jane.Doe@student.laurea.fi
+Password = ********
+Invalid_Email = invalid.email
+Empty =
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Tests
+
+Register User With Valid Credentials
+    Navigate To Login Page  LoginUrl
+    Input First Name  FirstName
+    Input Last Name  LastName
+	Input Username  UserName
+	Input Email  Email
+	Input Password  Password
+	Complete Verification
+    Submit Registration Form
+	Verify Email Address
+	Verify Phone Number
+    Verify Page Should Contain Welcome to GitLab	
+
+# Negative Tests
+
+Register User With Same Above Username
+    Navigate To Login Page  LoginUrl
+    Input First Name  FirstName
+    Input Last Name  LastName
+	Input Username  UserName
+	Verify That Error Message Should Say Username is already taken
+
+Register User With Empty Password
+    Navigate To Login Page  LoginUrl
+    Input First Name  FirstName
+    Input Last Name  LastName
+	Input Username  UserName
+	Input Email  Email
+	Input Password  Empty
+	Submit Registration Form
+	Verify That Error Message Should Say Minimum length is 8 characters
+
+Register User With Invalid Email
+    Navigate To Login Page  LoginUrl
+    Input First Name  FirstName
+    Input Last Name  LastName
+	Input Username  UserName
+	Input Invalid Email  Invalid_Email
+	Verify That Error Message Should Say Please provide a valid email address
+
+Register User Without Verification
+    Navigate To Login Page  LoginUrl
+    Input First Name  FirstName
+    Input Last Name  LastName
+	Input Username  UserName
+	Input Email  Email
+	Input Password  Password
+	Verify That Error Message Should Say Complete verification to sign up

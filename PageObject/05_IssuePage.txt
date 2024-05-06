@@ -1,0 +1,63 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation
+
+Documentation	Issue Test Scenario. Test for Creating, Updating, and Deleting Issues
+
+# TODO: Write Precondition and Postcondition, Tags 
+
+Pre Condition	Open Browser, Log in, Create a Project
+Post Condition	Sign out, Close All Browsers
+Tags	IssueManagement, TS-4-IssueManagement
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+NewIssueUrl = https://gitlab.com/group-slug-here/project-slug-here/-/issues/new
+IssuesUrl = https://gitlab.com/group-slug-here/project-slug-here/-/issues
+IssueTitle = Laurea2024-issue
+NewIssueTitle = Laurea2024-newissue
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive Test Cases and Test Process steps
+
+# Positive Tests
+
+Create Issue
+    Navigate To New Issue Page  NewIssueUrl
+    Input Issue Title  IssueTitle
+    Click On Create Issue
+    Verify Page Should Say Issue created just now by user
+
+Update Name of Issue
+    Navigate To Issues Page  IssuesUrl
+    Select Issue
+    Click On Edit
+    Input New Issue Title  NewIssueTitle
+    Click On Save changes
+    Verify That Issue Activity Says User changed title from IssueTitle to NewIssueTitle just now
+
+Create Second Issue with the Previous Updated Name
+    Navigate To New Issue Page  NewIssueUrl
+    Input Title  NewIssueTitle
+    Click On Create Issue
+    Verify Page Should Say Issue created just now by user
+
+Delete First Issue
+    Navigate To Issues Page  IssuesUrl
+    Select Issue
+    Click On Three Vertical Dots Menu
+    Click On Delete issue
+    Confirm Deletion
+    Verify Page Should Say The issue was successfully deleted
